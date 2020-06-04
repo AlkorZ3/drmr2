@@ -1,5 +1,5 @@
-/* drmr.h
- * LV2 DrMr plugin
+/* drmr2.h
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * Public License v3. source code is available at 
@@ -66,7 +66,7 @@ typedef struct {
 
 // lv2 stuff
 
-#define DRMR_URI "http://github.com/nicklan/drmr"
+#define DRMR_URI "http://github.com/AlkorZ3/drmr2"
 #define GAIN_MIN -60.0f
 #define GAIN_MAX 6.0f
 

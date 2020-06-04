@@ -1,5 +1,5 @@
-/* drmr_hydrogen.h
- * LV2 DrMr plugin
+/* drmr2_hydrogen.h
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * Public License v3. source code is available at 

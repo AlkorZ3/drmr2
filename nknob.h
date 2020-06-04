@@ -1,5 +1,5 @@
 /* nknob.h
- * LV2 DrMr plugin
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * NKnob - A simplified version of phatknob that just is a new gui

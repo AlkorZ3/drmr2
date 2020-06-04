@@ -7,18 +7,18 @@
 @prefix atom: <http://lv2plug.in/ns/ext/atom#> .
 @prefix urid: <http://lv2plug.in/ns/ext/urid#> .
 
-<http://github.com/nicklan/drmr>
+<http://github.com/AlkorZ3/drmr2>
   a lv2:InstrumentPlugin, lv2:Plugin;
-  lv2:binary <drmr.so>;
-  doap:name "DrMr Sampler";
+  lv2:binary <drmr2.so>;
+  doap:name "DrMr2 Sampler";
   doap:maintainer [
-	foaf:name "Nick Lanham" ;
-	foaf:homepage <http://github.com/nick/drmr/wiki> ;
-	foaf:mbox <nick@afternight.org>
+	foaf:name "AlkorZ3" ;
+	foaf:homepage <http://github.com/AlkorZ3/drmr2/wiki> ;
+	foaf:mbox <alkorz3@rx3.net>
   ] ;
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   lv2:requiredFeature urid:map ;
-  ui:ui <http://github.com/nicklan/drmr#ui> ;
+  ui:ui <http://github.com/AlkorZ3/drmr2#ui> ;
   lv2:extensionData <http://lv2plug.in/ns/ext/state#interface> ;
   lv2:port [
     a lv2:InputPort , atom:AtomPort;
@@ -892,6 +892,6 @@
     lv2:default 0.0;
   ].
 
-<http://github.com/nicklan/drmr#ui>
+<http://github.com/AlkorZ3/drmr2#ui>
   a ui:GtkUI ;
-  ui:binary <drmr_ui.so> .
+  ui:binary <drmr2_ui.so> .

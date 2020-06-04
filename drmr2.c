@@ -1,5 +1,5 @@
-/* drmr.c
- * LV2 DrMr plugin
+/* drmr2.c
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * Public License v3. source code is available at 
@@ -19,8 +19,8 @@
 #include <string.h>
 #include <math.h>
 
-#include "drmr.h"
-#include "drmr_hydrogen.h"
+#include "drmr2.h"
+#include "drmr2_hydrogen.h"
 
 #define REQ_BUF_SIZE 10
 #define VELOCITY_MAX 127

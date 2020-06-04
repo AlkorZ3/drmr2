@@ -1,3 +1,10 @@
+DrMr2
+====
+
+DrMr2 is a fork from DrMr, with additional patches comming from falkTX & PeterN
+
+
+
 DrMr
 ====
 

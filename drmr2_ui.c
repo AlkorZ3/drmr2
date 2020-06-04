@@ -1,5 +1,5 @@
-/* drmr.c
- * LV2 DrMr plugin
+/* drmr2.c
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * Public License v3. source code is available at 
@@ -20,8 +20,8 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-#include "drmr.h"
-#include "drmr_hydrogen.h"
+#include "drmr2.h"
+#include "drmr2_hydrogen.h"
 #include "nknob.h"
 
 #include "lv2/lv2plug.in/ns/ext/atom/atom.h"
@@ -30,7 +30,7 @@
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#define DRMR_UI_URI "http://github.com/nicklan/drmr#ui"
+#define DRMR_UI_URI "http://github.com/AlkorZ3/drmr2#ui"
 #define NO_KIT_STRING "[No Current Kit]"
 
 typedef struct {

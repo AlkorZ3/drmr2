@@ -1,5 +1,5 @@
-/* drmr_hydrogen.c
- * LV2 DrMr plugin
+/* drmr2_hydrogen.c
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * Public License v3. source code is available at 
@@ -27,8 +27,8 @@
 #include <math.h>
 
 #include "samplerate.h"
-#include "drmr.h"
-#include "drmr_hydrogen.h"
+#include "drmr2.h"
+#include "drmr2_hydrogen.h"
 #include "expat.h"
 
 /* Below is a list of the locations that DrMr will
@@ -46,7 +46,7 @@ static char* default_drumkit_locations[] = {
   "/usr/local/share/hydrogen/data/drumkits/",
   "/usr/share/drmr/drumkits/",
   "~/.hydrogen/data/drumkits/",
-  "~/.drmr/drumkits/",
+  "~/.drmr2/drumkits/",
   NULL
 };
 

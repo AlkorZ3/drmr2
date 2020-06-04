@@ -1,7 +1,7 @@
 #CMake file for DrMr
 
 cmake_minimum_required(VERSION 2.6)
-project (DrMr)
+project (DrMr2)
 
 set(LV2_INSTALL_DIR lib/lv2 CACHE PATH "Specifies where the LV2 libraries should be installed")
 set(CMAKE_C_FLAGS "-Wall")
@@ -23,35 +23,35 @@ link_directories (${LV2_LIBRARY_DIRS} ${EXPAT_LIBRARY_DIRS} ${SNDFILE_LIBRARY_DI
 
 # config libraries
 
-add_library(drmr SHARED
-  drmr.c
-  drmr_hydrogen.c
-  drmr.h
-  drmr_hydrogen.h
+add_library(drmr2 SHARED
+  drmr2.c
+  drmr2_hydrogen.c
+  drmr2.h
+  drmr2_hydrogen.h
 )
 
-add_library(drmr_ui SHARED
-  drmr_ui.c
-  drmr_hydrogen.c
+add_library(drmr2_ui SHARED
+  drmr2_ui.c
+  drmr2_hydrogen.c
   nknob.c
-  drmr_hydrogen.h
+  drmr2_hydrogen.h
   nknob.h
 )
 
-set_target_properties(drmr PROPERTIES PREFIX "")
-set_target_properties(drmr_ui PROPERTIES PREFIX "")
-set_target_properties(drmr_ui 
+set_target_properties(drmr2 PROPERTIES PREFIX "")
+set_target_properties(drmr2_ui PROPERTIES PREFIX "")
+set_target_properties(drmr2_ui 
   PROPERTIES
   LINK_FLAGS "-Wl,-znodelete"
 )
 
-target_link_libraries(drmr ${LV2_LIBRARIES} ${SNDFILE_LIBRARIES} ${SAMPLERATE_LIBRARIES} ${EXPAT_LIBRARIES} m)
-target_link_libraries(drmr_ui ${LV2_LIBRARIES} ${GTK2_LIBRARIES} ${SNDFILE_LIBRARIES} ${SAMPLERATE_LIBRARIES} ${EXPAT_LIBRARIES} m)
+target_link_libraries(drmr2 ${LV2_LIBRARIES} ${SNDFILE_LIBRARIES} ${SAMPLERATE_LIBRARIES} ${EXPAT_LIBRARIES} m)
+target_link_libraries(drmr2_ui ${LV2_LIBRARIES} ${GTK2_LIBRARIES} ${SNDFILE_LIBRARIES} ${SAMPLERATE_LIBRARIES} ${EXPAT_LIBRARIES} m)
 
 
 add_definitions ( -DPIC )
 
-set_target_properties (drmr
+set_target_properties (drmr2
   PROPERTIES
   COMPILE_FLAGS "-std=gnu99"
 )
@@ -63,13 +63,13 @@ if (NOT USE_NKNOB)
 endif (NOT USE_NKNOB)
 
 if (SAMP_ZERO_POS GREATER "-1" AND SAMP_ZERO_POS LESS "4")
-   set (ui_compile_flags "${ui_compile_flags} -DDRMR_UI_ZERO_SAMP=${SAMP_ZERO_POS}")
+   set (ui_compile_flags "${ui_compile_flags} -DDRMR2_UI_ZERO_SAMP=${SAMP_ZERO_POS}")
 else (SAMP_ZERO_POS GREATER "-1" AND SAMP_ZERO_POS LESS "4")
    message(WARNING "Invalid SAMP_ZERO_POS, defaulting to 0 \(top left\).  Valid values are 0,1,2,3")
-   set (ui_compile_flags "${ui_compile_flags} -DDRMR_UI_ZERO_SAMP=0")
+   set (ui_compile_flags "${ui_compile_flags} -DDRMR2_UI_ZERO_SAMP=0")
 endif (SAMP_ZERO_POS GREATER "-1" AND SAMP_ZERO_POS LESS "4")
 
-set_target_properties (drmr_ui
+set_target_properties (drmr2_ui
   PROPERTIES
   COMPILE_FLAGS ${ui_compile_flags}
 )
@@ -77,7 +77,7 @@ set_target_properties (drmr_ui
 # Custom test commands
 add_executable ( htest
   EXCLUDE_FROM_ALL
-  drmr_hydrogen.c
+  drmr2_hydrogen.c
 )
 
 add_executable ( knobt
@@ -98,11 +98,11 @@ set_target_properties ( knobt
 )
 
 # config install
-install(TARGETS drmr drmr_ui
+install(TARGETS drmr2 drmr2_ui
   LIBRARY
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${LV2_INSTALL_DIR}/drmr.lv2
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${LV2_INSTALL_DIR}/drmr2.lv2
 )
 
-install (FILES manifest.ttl drmr.ttl knob.png led_on.png led_off.png
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${LV2_INSTALL_DIR}/drmr.lv2
+install (FILES manifest.ttl drmr2.ttl knob.png led_on.png led_off.png
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${LV2_INSTALL_DIR}/drmr2.lv2
 )

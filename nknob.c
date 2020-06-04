@@ -1,12 +1,12 @@
 /* nknob.c
- * LV2 DrMr plugin
+ * LV2 DrMr2 plugin
  * Copyright 2012 Nick Lanham <nick@afternight.org>
  *
  * NKnob - A simplified version of phatknob that just is a new gui
  *         over a GtkRange (i.e. it can be used exactly like a
  *         GtkRange from the outside)
  *
- * In addition, this knob makes the drmr_ui.so module memory resident
+ * In addition, this knob makes the drmr2_ui.so module memory resident
  * so it can avoid attempting to re-load itself when shown/hidden in
  * a ui.
  *
