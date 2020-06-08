@@ -74,6 +74,9 @@ set_target_properties (drmr2_ui
   COMPILE_FLAGS ${ui_compile_flags}
 )
 
+# drmr2.ttl generation
+add_custom_command(TARGET drmr2 COMMAND ./drmr2-mkttl WORKING_DIRECTORY ..)
+
 # Custom test commands
 add_executable ( htest
   EXCLUDE_FROM_ALL

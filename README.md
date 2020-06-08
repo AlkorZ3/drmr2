@@ -1,7 +1,10 @@
 DrMr2
 ====
 
-DrMr2 is a fork from DrMr, with additional patches comming from falkTX & PeterN
+DrMr2 is a fork from DrMr, with additional patches comming from falkTX & PeterN.
+The first aim is to let DrMR2 to be more flexible.
+
+The first evolution implemented is the multiple output audio port (defaulted to 32).
 
 
 

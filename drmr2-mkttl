@@ -1,0 +1,153 @@
+#!/bin/bash
+
+  out_file="drmr2.ttl"
+outport_nb=32
+
+
+
+add_port()
+{
+    echo -e >>${out_file} "  ["
+
+    case "$#"
+    in
+        "2")
+            printf >>${out_file} "$2" "${idx}"
+	;;
+	
+	"3")
+	    printf >>${out_file} "$2" "${idx}" "$3"
+	;;
+
+	"4")
+	    printf >>${out_file} "$2" "${idx}" "$3" "$4"
+	;;
+    esac
+
+    echo -e >>${out_file} "\n  ]$1"
+
+    idx=$((${idx} + 1))
+}
+
+
+
+
+
+>${out_file}
+
+echo -n >>${out_file} '@prefix lv2:  <http://lv2plug.in/ns/lv2core#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix doap: <http://usefulinc.com/ns/doap#>.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#>.
+@prefix atom: <http://lv2plug.in/ns/ext/atom#>.
+@prefix urid: <http://lv2plug.in/ns/ext/urid#>.
+
+<http://github.com/AlkorZ3/drmr2>
+  a lv2:InstrumentPlugin, lv2:Plugin;
+  lv2:binary <drmr2.so>;
+  doap:name "DrMr2 Sampler";
+  doap:maintainer [
+    foaf:name "AlkorZ3";
+    foaf:homepage <http://github.com/AlkorZ3/drmr2/wiki>;
+    foaf:mbox <alkorz3@rx3.net>
+  ] ;
+  doap:license <http://usefulinc.com/doap/licenses/gpl>;
+  lv2:requiredFeature urid:map;
+  ui:ui <http://github.com/AlkorZ3/drmr2#ui>;
+  lv2:extensionData <http://lv2plug.in/ns/ext/state#interface>;
+  lv2:port'
+
+idx=0
+
+add_port "," "    a lv2:InputPort , atom:AtomPort;
+    atom:bufferType atom:Sequence ;
+    atom:supports <http://lv2plug.in/ns/ext/midi#MidiEvent>,
+                  <http://lv2plug.in/ns/ext/atom#Resource>;
+    lv2:index %d;
+    lv2:symbol \"control\";
+    lv2:name \"Control\";"
+
+
+idx=1
+out_id=0
+
+while [[ "${out_id}" -lt "${outport_nb}" ]]
+do
+  add_port "," "    a lv2:AudioPort, lv2:OutputPort;
+    lv2:index %d;
+    lv2:symbol \"audio_%02d_out_1\";
+    lv2:name \"Audio %02d - Out 1\";" "${out_id}" "${out_id}"
+
+  add_port "," "    a lv2:AudioPort, lv2:OutputPort;
+    lv2:index %d;
+    lv2:symbol \"audio_%02d_out_2\";
+    lv2:name \"Audio %02d - Out 2\";" "${out_id}" "${out_id}"
+
+  out_id=$((${out_id} + 1))
+done
+
+
+
+add_port "," "    a lv2:ControlPort, lv2:InputPort;
+    lv2:index %d;
+    lv2:symbol \"base_note\";
+    lv2:name \"Midi Base Note\";
+    lv2:minimum 21;
+    lv2:maximum 107;
+    lv2:default 36;
+    lv2:portProperty lv2:integer;"
+
+
+
+out_id=0
+
+while [[ "${out_id}" -lt "32" ]]
+do
+  add_port "," "    a lv2:ControlPort, lv2:InputPort;
+    lv2:index %d;
+    lv2:symbol \"gain_%02d\";
+    lv2:name \"Sample Gain %02d\";
+    lv2:minimum -60.0;
+    lv2:maximum 6.0;
+    lv2:default 0.0;
+    lv2:scalePoint [
+      rdfs:label \"-inf\" ;
+      rdf:value -60.0;
+    ]" "${out_id}" "${out_id}"
+
+  out_id=$((${out_id} + 1))
+done
+
+
+
+out_id=0
+
+while [[ "${out_id}" -lt "32" ]]
+do
+  add_port "," "    a lv2:ControlPort, lv2:InputPort;
+    lv2:index %d;
+    lv2:symbol \"pan_%02d\";
+    lv2:name \"Sample Pan %02d\";
+    lv2:minimum -1.0;
+    lv2:maximum 1.0;
+    lv2:default 0.0;" "${out_id}" "${out_id}"
+
+  out_id=$((${out_id} + 1))
+done
+
+
+
+add_port "." "    a lv2:OutputPort , atom:AtomPort ;
+    atom:bufferType atom:Sequence ;
+    atom:supports <http://lv2plug.in/ns/ext/atom#Resource> ;
+    lv2:index %d ;
+    lv2:symbol \"core_events\" ;
+    lv2:name \"Core Events\""
+
+echo  >>${out_file} '
+
+<http://github.com/AlkorZ3/drmr2#ui>
+  a ui:GtkUI ;
+  ui:binary <drmr2_ui.so> .'
