@@ -230,6 +230,15 @@ static char* expand_path(char* path, char* buf) {
   return buf;
 }
 
+
+
+static int *compar_kit(const void *p1, const void *p2)
+{
+    return (int) strcmp( (* (scanned_kit **) p1)->name, (* (scanned_kit **) p2)->name);
+}
+
+
+
 kits* scan_kits() {
   DIR* dp;
   FILE* file;
@@ -339,21 +348,36 @@ kits* scan_kits() {
   ret->num_kits = cp;
   ret->kits = malloc(cp*sizeof(scanned_kit));
 
+  scanned_kit **sort_tab = (scanned_kit **)malloc( cp * sizeof(scanned_kit *));
+
   cur_k = scanned_kits;
   cp = 0;
-  while(cur_k) {
-    ret->kits[cp].name = cur_k->skit->name;
-    ret->kits[cp].desc = cur_k->skit->desc;
-    ret->kits[cp].path = cur_k->skit->path;
-    ret->kits[cp].samples = cur_k->skit->samples;
-    ret->kits[cp].sample_names = cur_k->skit->sample_names;
-    cp++;
-    free(cur_k->skit);
-    cur_k = cur_k->next;
-    // free each node as we go along
-    free(scanned_kits);
-    scanned_kits = cur_k;
+  while(cur_k)
+  {
+      sort_tab[cp] = cur_k->skit;
+      cur_k = cur_k->next;
+
+      // free each node as we go along
+      free(scanned_kits);
+      scanned_kits = cur_k;
+
+      cp++;
   }
+
+  qsort( sort_tab, ret->num_kits, sizeof(scanned_kit *), compar_kit);
+
+  for( cp=0; cp < ret->num_kits; cp++)
+  {
+      ret->kits[cp].name         = (sort_tab[cp])->name;
+      ret->kits[cp].desc         = (sort_tab[cp])->desc;
+      ret->kits[cp].path         = (sort_tab[cp])->path;
+      ret->kits[cp].samples      = (sort_tab[cp])->samples;
+      ret->kits[cp].sample_names = (sort_tab[cp])->sample_names;
+
+      free(sort_tab[cp]);
+  }
+
+  free(sort_tab);
 
   return ret;
 }
